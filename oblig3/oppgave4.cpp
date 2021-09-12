@@ -44,6 +44,34 @@ void replaceFromToWith(string &subject, int from, int to, string with) {
     }
 }
 
+//f)
+string getSubStringOf(string subject, int cutoff) {
+    if (subject.size() - 1 < cutoff) return subject;
+    return subject.substr(0, cutoff);
+}
+
+//g)
+bool substringExists(string subject, string substring) {
+    //https://stackoverflow.com/questions/2340281/check-if-a-string-contains-a-string-in-c
+    //here i learned that find does infact not return -1 if substring is not found :D
+    return subject.find(substring) != string::npos;
+}
+
+//h)
+void printIndexesOfSubstring(string subject, string substring) {
+    if (!substringExists(subject, substring)) {
+        cout << "\"" << substring << "\" does not exit in \"" << subject << "\"" << endl;
+        return;
+    }
+
+    int index = subject.find(substring, 0);
+    while(index != string::npos) {
+        cout << "\"" << substring << "\" found at " << index << endl;
+        //check index after last find
+        index = subject.find(substring, index + 1);
+    }
+}
+
 int main () {
     //word1 word2 word3
     string words[length];
@@ -56,12 +84,23 @@ int main () {
     //print length of sentence
     cout << "Length of Sentence: " << sentence.size() << endl;
 
-    //make copy
+    //make copy d)
     string sentence2 = sentence;
     //replace characters
     replaceFromToWith(sentence2, 10, 12, "x");
     //print replaced sentence
-    cout << "Sentence Copy is after replacement: " << sentence2 << endl;
+    cout << "Sentence Copy after replacement: " << sentence2 << endl;
+    //get first 5 letters of sentence
+    string sentence_start = getSubStringOf(sentence, 5);
+    cout << "Sentence is: " << sentence << endl;
+    cout << "Sentence Start is: " << sentence_start << endl;
+
+    string wordToCheck = "hello";
+    string result = substringExists(sentence, wordToCheck) ? "Yes" : "No";
+    cout << "Is \"" << wordToCheck << "\" substring of sentence: " << result << endl;
+
+    string wordToCheck2 = "er";
+    printIndexesOfSubstring(sentence, wordToCheck2);
 
     return 0;
 }
