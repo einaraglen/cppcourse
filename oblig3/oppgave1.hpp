@@ -16,7 +16,7 @@ class Circle {
 
 // ==> Implementasjon av klassen Circle
 
-Circle::Circle(double radius_) : radius(radius) {} // radius_ er er ikke en del av feltene til Circle
+Circle::Circle(double radius_) : radius(radius_) {} // radius_ er er ikke en del av feltene til Circle
 
 //int Circle::get_area() { mangler const keyword
 int Circle::get_area() const { // FIX
