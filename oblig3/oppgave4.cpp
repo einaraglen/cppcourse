@@ -66,7 +66,7 @@ void printIndexesOfSubstring(string subject, string substring) {
 
     int index = subject.find(substring, 0);
     while(index != string::npos) {
-        cout << "\"" << substring << "\" found at " << index << endl;
+        cout << "\"" << substring << "\" found at index " << index << endl;
         //check index after last find
         index = subject.find(substring, index + 1);
     }
