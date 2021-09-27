@@ -22,6 +22,8 @@ public:
 
     /// Returns true if the given chess piece move is valid
     virtual bool valid_move(int from_x, int from_y, int to_x, int to_y) const = 0;
+
+    virtual string piece_char() const = 0;
   };
 
   class King : public Piece {
@@ -30,12 +32,9 @@ public:
 
     string type() const override { return color_string() + " King"; }
 
-    bool valid_move(int from_x, int from_y, int to_x, int to_y) const override {
-      //King can move 1 pos in every dir
-      if (from_x - to_x > 1 || to_x - from_x > 1) return false;
-      if (from_y - to_y > 1 || to_y - from_y > 1) return false;
-      return true;
-    }
+    bool valid_move(int from_x, int from_y, int to_x, int to_y) const override { return abs(to_x - from_x) <= 1 && abs(to_y - from_y) <= 1; }
+
+    string piece_char() const override { return color == Color::WHITE ? "wK" : "bK"; }
   };
 
   class Knight : public Piece {
@@ -44,10 +43,9 @@ public:
 
     string type() const override { return color_string() + " Knight"; }
 
-    bool valid_move(int from_x, int from_y, int to_x, int to_y) const override {
-      //Knight can move 2 pos in one dir give only move 1 pos other dir
-      return true;
-    }
+    bool valid_move(int from_x, int from_y, int to_x, int to_y) const override { return abs((from_x - to_x) * (from_y - to_y)) == 2; }
+
+    string piece_char() const override { return color == Color::WHITE ? "wk" : "bk"; }
   };
 
   ChessBoard() {
@@ -67,6 +65,8 @@ public:
     int from_y = stoi(string() + from[1]) - 1;
     int to_x = to[0] - 'a';
     int to_y = stoi(string() + to[1]) - 1;
+
+    show_board();
 
     auto &piece_from = squares[from_x][from_y];
     if (piece_from) {
@@ -95,6 +95,23 @@ public:
       return false;
     }
   }
+
+  string get_cell(int x, int y) const{
+    auto &piece = squares[x][y];
+    return (piece) ? piece->piece_char() : "  ";
+  }
+
+  void show_board() const {
+    cout << " +----+----+----+----+----+----+----+----+" << endl;
+    for(int x = 0; x < squares.size(); x++) {
+        cout << " | ";
+        for(int y = 0; y < squares[0].size(); y++) {
+          cout << get_cell(x, y) << " | ";
+        } 
+        cout << endl << " +----+----+----+----+----+----+----+----+" << endl;
+    }
+  }
+
 };
 
 int main() {

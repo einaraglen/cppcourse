@@ -8,6 +8,8 @@
         "xutility": "cpp",
         "algorithm": "cpp",
         "vector": "cpp",
-        "utility": "cpp"
+        "utility": "cpp",
+        "cstdlib": "cpp",
+        "memory": "cpp"
     }
 }
