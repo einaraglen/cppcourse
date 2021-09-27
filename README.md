@@ -1,1 +1,1 @@
-cppcourse
+NTNU C++ For Programmers Course
